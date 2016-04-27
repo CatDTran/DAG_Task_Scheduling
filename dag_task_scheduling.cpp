@@ -25,6 +25,7 @@ int main()
 	int maxNodes = MAX;
 	cin >> numCrews;
 	cout << "Number of crews: " << numCrews << endl;
+	directedAcylicGraph.distance;
 	while(getline(cin, line))
 	{
 		string command;
@@ -52,8 +53,31 @@ int main()
 			iss >> tail;
 			iss >> head;
 			iss >> distance;
-			cout << command << " " << tail << " " << head << " " << distance << endl;
+			cout << command << " " << tail << " " << head << " ";
+
+			directedAcylicGraph.distance[tail][head] = distance;
+			cout  << directedAcylicGraph.distance[tail][head] << endl;
 		}
+	}
+	for(int i = 1;i <= numNodes; i++)
+	{
+		for (int j = 1; j <= numNodes; j++)
+			if(i == j)
+				directedAcylicGraph.distance[i][j] = 0;
+			else if(i != j && directedAcylicGraph.distance[i][j] == 0)
+			{
+				directedAcylicGraph.distance[i][j] = -1;
+			}
+	}
+
+	for(int i= 1; i <= numNodes; i++)
+	{
+		for(int j = 1; j <= numNodes; j++)
+		{
+
+			cout << directedAcylicGraph.distance[i][j] << " ";
+		}
+		cout << endl;
 	}
 	cout << "numNodes: " << numNodes << " | numArcs: " << numArcs << endl;
 }
