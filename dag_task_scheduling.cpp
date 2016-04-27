@@ -23,22 +23,24 @@ string line;
 int main()
 {
 	int maxNodes = MAX;
-	cin >> numCrews;
-	cout << "Number of crews: " << numCrews << endl;
-	directedAcylicGraph.distance;
+	cin >> numCrews;//read the first line which contains number of crews
+	cout << "Number of crews: " << numCrews << endl;//print out the number of crews
 	while(getline(cin, line))
 	{
 		string command;
 		int tail, head, distance;
-		istringstream iss(line);
-		iss >> command;
+		istringstream iss(line);//store read in line into in-string-stream
+		iss >> command;//first portion of in-string stream will be the 'command'
+		//if command is 'c': create new node object
 		if(line[0] == 'c')
 		{
 			++numNodes;
-			//initialize each node
-			DAGNode node;
+			//initialize the node object
+			DAGNode node(MAX);
 			node.nodeName = numNodes;
 			node.taskScheduled = false;
+			node.numPredecessors = 0;
+			node.numSuccessors = 0;
 			directedAcylicGraph.graph[numNodes] = node;
 			//
 			cout << directedAcylicGraph.graph[numNodes].nodeName;
@@ -55,29 +57,40 @@ int main()
 			iss >> distance;
 			cout << command << " " << tail << " " << head << " ";
 
+			int successorsIndex = ++directedAcylicGraph.graph[tail].numSuccessors;
+			int predecessorsIndex = ++directedAcylicGraph.graph[tail].numPredecessors;
+			directedAcylicGraph.graph[tail].successors[successorsIndex] = directedAcylicGraph.graph[head].nodeName;
+			directedAcylicGraph.graph[head].predecessors[predecessorsIndex] = directedAcylicGraph.graph[tail].nodeName;
 			directedAcylicGraph.distance[tail][head] = distance;
+			
 			cout  << directedAcylicGraph.distance[tail][head] << endl;
 		}
 	}
-	for(int i = 1;i <= numNodes; i++)
+	//print out successors for each node
+	for(int i = 1; i <= numNodes;i++)
 	{
-		for (int j = 1; j <= numNodes; j++)
-			if(i == j)
-				directedAcylicGraph.distance[i][j] = 0;
-			else if(i != j && directedAcylicGraph.distance[i][j] == 0)
-			{
-				directedAcylicGraph.distance[i][j] = -1;
-			}
+		cout << "Node " << directedAcylicGraph.graph[i].nodeName << " Successor: ";
+		
 	}
+	// for(int i = 1;i <= numNodes; i++)
+	// {
+	// 	for (int j = 1; j <= numNodes; j++)
+	// 		if(i == j)
+	// 			directedAcylicGraph.distance[i][j] = 0;
+	// 		else if(i != j && directedAcylicGraph.distance[i][j] == 0)
+	// 		{
+	// 			directedAcylicGraph.distance[i][j] = -1;
+	// 		}
+	// }
 
-	for(int i= 1; i <= numNodes; i++)
-	{
-		for(int j = 1; j <= numNodes; j++)
-		{
+	// for(int i= 1; i <= numNodes; i++)
+	// {
+	// 	for(int j = 1; j <= numNodes; j++)
+	// 	{
 
-			cout << directedAcylicGraph.distance[i][j] << " ";
-		}
-		cout << endl;
-	}
+	// 		cout << directedAcylicGraph.distance[i][j] << " ";
+	// 	}
+	// 	cout << endl;
+	// }
 	cout << "numNodes: " << numNodes << " | numArcs: " << numArcs << endl;
 }

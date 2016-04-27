@@ -11,7 +11,17 @@ class DAGNode
 	int nodeName;
 	bool taskScheduled;
 	int distance;
-	DAGNode *predecessor;
-	DAGNode *successor;
+	int numPredecessors;
+	int numSuccessors;
+	int predecessors[];
+	int successors[];
+	DAGNode *next;
+
+	DAGNode(int max);
 };
+DAGNode::DAGNode(int max)
+{
+	predecessors[max];
+	successors[max];
+}
 #endif
