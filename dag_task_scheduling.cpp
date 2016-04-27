@@ -25,6 +25,7 @@ int main()
 	int maxNodes = MAX;
 	cin >> numCrews;//read the first line which contains number of crews
 	cout << "Number of crews: " << numCrews << endl;//print out the number of crews
+
 	while(getline(cin, line))
 	{
 		string command;
@@ -66,11 +67,17 @@ int main()
 			cout  << directedAcylicGraph.distance[tail][head] << endl;
 		}
 	}
+
 	//print out successors for each node
 	for(int i = 1; i <= numNodes;i++)
 	{
 		cout << "Node " << directedAcylicGraph.graph[i].nodeName << " Successor: ";
-		
+		for(int j = 0; j <= directedAcylicGraph.graph[i].numSuccessors; j++)
+		{
+			if(directedAcylicGraph.graph[i].successors[j] != -1)
+				cout << directedAcylicGraph.graph[i].successors[j];
+		}
+		cout << endl;
 	}
 	// for(int i = 1;i <= numNodes; i++)
 	// {
