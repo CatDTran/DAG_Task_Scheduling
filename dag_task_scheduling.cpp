@@ -17,6 +17,7 @@ int numCrews = 0;
 int numNodes = 0;
 int numArcs = 0;
 DAG directedAcylicGraph(MAX);
+DataReadySet myDataReadySet (MAX);
 string line;
 int main()
 {
@@ -28,7 +29,16 @@ int main()
 		if(line[0] == 'c')
 		{
 			++numNodes;
-			directedAcylicGraph.graph[numNodes].nodeName = numNodes;
+			//initialize each node
+			DAGNode node;
+			node.nodeName = numNodes;
+			node.taskScheduled = false;
+			//
+			if(!node.taskScheduled)
+				cout << "False";
+			else
+				cout << "True";
+			directedAcylicGraph.graph[numNodes] = node;
 			cout << directedAcylicGraph.graph[numNodes].nodeName << endl;
 		}
 		else if(line[0] == 'a')
@@ -37,5 +47,4 @@ int main()
 		}
 	}
 	cout << "numNodes: " << numNodes << " | numArcs: " << numArcs << endl;
-
 }

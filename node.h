@@ -9,8 +9,9 @@ class DAGNode
 {
 	public:
 	int nodeName;
+	bool taskScheduled;
+	int distance;
 	DAGNode *predecessor;
 	DAGNode *successor;
-	int distance;
 };
 #endif

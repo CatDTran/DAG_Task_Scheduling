@@ -2,18 +2,15 @@
 *Program: Task Scheduling using Directed Acylic Graph
 *Spring 2016 CSCE 2110-Program 3
 *University of North Texas
-*dag.h*/
-#include "node.h"
-#include "data_ready_set.h"
+*data_ready_set.h*/
 
-class DAG
+class DataReadySet
 {
 public:
-	DAGNode graph[];
-	DAG(int max);
+	DAGNode readyNodes[];
+	DataReadySet(int max);
 };
-
-DAG::DAG(int max)
+DataReadySet::DataReadySet(int max)
 {
-	graph[max];
+	readyNodes[max];
 }
