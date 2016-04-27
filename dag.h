@@ -5,11 +5,12 @@
 *dag.h*/
 #include "node.h"
 #include "data_ready_set.h"
-
+#define MAX2 1000
 class DAG
 {
 public:
 	DAGNode graph[];
+	int distance[MAX2][MAX2];
 	DAG(int max);
 };
 

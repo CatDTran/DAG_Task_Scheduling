@@ -8,6 +8,7 @@
 #include <iostream>
 #include <string>
 #include <string>
+#include <sstream>
 #include "dag.h"
 
 #define MAX 1000
@@ -26,6 +27,10 @@ int main()
 	cout << "Number of crews: " << numCrews << endl;
 	while(getline(cin, line))
 	{
+		string command;
+		int tail, head, distance;
+		istringstream iss(line);
+		iss >> command;
 		if(line[0] == 'c')
 		{
 			++numNodes;
@@ -33,17 +38,21 @@ int main()
 			DAGNode node;
 			node.nodeName = numNodes;
 			node.taskScheduled = false;
-			//
-			if(!node.taskScheduled)
-				cout << "False";
-			else
-				cout << "True";
 			directedAcylicGraph.graph[numNodes] = node;
-			cout << directedAcylicGraph.graph[numNodes].nodeName << endl;
+			//
+			cout << directedAcylicGraph.graph[numNodes].nodeName;
+			if(!node.taskScheduled)
+				cout << "False" << endl;
+			else
+				cout << "True" << endl;
 		}
 		else if(line[0] == 'a')
 		{
 			++numArcs;
+			iss >> tail;
+			iss >> head;
+			iss >> distance;
+			cout << command << " " << tail << " " << head << " " << distance << endl;
 		}
 	}
 	cout << "numNodes: " << numNodes << " | numArcs: " << numArcs << endl;
