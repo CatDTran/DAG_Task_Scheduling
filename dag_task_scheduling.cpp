@@ -15,6 +15,7 @@
 using namespace std;
 int numCrews = 0;
 int numNodes = 0;
+int numArcs = 0;
 DAG directedAcylicGraph(MAX);
 string line;
 int main()
@@ -30,5 +31,11 @@ int main()
 			directedAcylicGraph.graph[numNodes].nodeName = numNodes;
 			cout << directedAcylicGraph.graph[numNodes].nodeName << endl;
 		}
+		else if(line[0] == 'a')
+		{
+			++numArcs;
+		}
 	}
+	cout << "numNodes: " << numNodes << " | numArcs: " << numArcs << endl;
+
 }
