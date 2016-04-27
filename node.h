@@ -3,11 +3,14 @@
 *Spring 2016 CSCE 2110-Program 3
 *University of North Texas
 *node.h*/
-
-class Node
+#ifndef DAGNODE
+#define DAGNODE
+class DAGNode
 {
+	public:
 	int nodeName;
-	Node *predecessor;
-	Node *successor;
-	int distance
-}
+	DAGNode *predecessor;
+	DAGNode *successor;
+	int distance;
+};
+#endif

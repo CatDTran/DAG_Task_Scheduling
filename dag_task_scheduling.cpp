@@ -8,20 +8,27 @@
 #include <iostream>
 #include <string>
 #include <string>
+#include "dag.h"
+
+#define MAX 1000
 
 using namespace std;
 int numCrews = 0;
 int numNodes = 0;
+DAG directedAcylicGraph(MAX);
 string line;
 int main()
 {
+	int maxNodes = MAX;
 	cin >> numCrews;
-	cout << numCrews << endl;
-	while(cin, line)
+	cout << "Number of crews: " << numCrews << endl;
+	while(getline(cin, line))
 	{
-		if(line[0] = 'c')
+		if(line[0] == 'c')
 		{
-
+			++numNodes;
+			directedAcylicGraph.graph[numNodes].nodeName = numNodes;
+			cout << directedAcylicGraph.graph[numNodes].nodeName << endl;
 		}
 	}
 }
