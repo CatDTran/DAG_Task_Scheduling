@@ -59,40 +59,48 @@ int main()
 			iss >> head;
 			iss >> distance;
 			cout << command << " " << tail << " " << head << " ";
-
 			int successorsIndex = ++directedAcylicGraph.graph[tail].numSuccessors;
 			int predecessorsIndex = ++directedAcylicGraph.graph[head].numPredecessors;
 			//store successor for each node
-			directedAcylicGraph.graph[tail].successors[successorsIndex] = directedAcylicGraph.graph[head].nodeName;
+			directedAcylicGraph.graph[tail].next = &directedAcylicGraph.graph[head];
 			//store predecessors for each node
 			directedAcylicGraph.graph[head].predecessors[predecessorsIndex] = directedAcylicGraph.graph[tail].nodeName;
-			directedAcylicGraph.distance[tail][head] = distance;
-			
+			directedAcylicGraph.distance[tail][head] = distance;			
 			cout  << directedAcylicGraph.distance[tail][head] << endl;
 		}
 	}
 
-	//print out successors for each node
-	for(int i = 1; i <= numNodes;i++)
+	//print out successors and predecessors for each node
+	for(int i = 1; i <= numNodes; i++)
 	{
-		//print out node's successors
 		cout << "Node " << directedAcylicGraph.graph[i].nodeName << " Successor: ";
-		for(int j = 0; j <= directedAcylicGraph.graph[i].numSuccessors; j++)
+		DAGNode *temp = directedAcylicGraph.graph[i].next;
+		while(temp->next != NULL)
 		{
-			if(directedAcylicGraph.graph[i].successors[j] != -1)
-				cout << directedAcylicGraph.graph[i].successors[j];
+			cout << temp->nodeName;
+			temp = temp->next;			
 		}
-		cout << endl;
-
-		//print out node's predecessors
-		cout << "Node " << directedAcylicGraph.graph[i].nodeName << " Predecessors: ";
-		for(int j = 0; j <= directedAcylicGraph.graph[i].numPredecessors; j++)
-		{
-			if(directedAcylicGraph.graph[i].predecessors[j] != -1)
-				cout << directedAcylicGraph.graph[i].predecessors[j];
-		}
-		cout << endl;
 	}
+	// for(int i = 1; i <= numNodes;i++)
+	// {
+	// 	//print out node's successors
+	// 	cout << "Node " << directedAcylicGraph.graph[i].nodeName << " Successor: ";
+	// 	for(int j = 0; j <= directedAcylicGraph.graph[i].numSuccessors; j++)
+	// 	{
+	// 		if(directedAcylicGraph.graph[i].successors[j] != -1)
+	// 			cout << directedAcylicGraph.graph[i].successors[j];
+	// 	}
+	// 	cout << endl;
+
+	// 	//print out node's predecessors
+	// 	cout << "Node " << directedAcylicGraph.graph[i].nodeName << " Predecessors: ";
+	// 	for(int j = 0; j <= directedAcylicGraph.graph[i].numPredecessors; j++)
+	// 	{
+	// 		if(directedAcylicGraph.graph[i].predecessors[j] != -1)
+	// 			cout << directedAcylicGraph.graph[i].predecessors[j];
+	// 	}
+	// 	cout << endl;
+	//}
 	// for(int i = 1;i <= numNodes; i++)
 	// {
 	// 	for (int j = 1; j <= numNodes; j++)

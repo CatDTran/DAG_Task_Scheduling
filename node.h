@@ -12,6 +12,8 @@ class DAGNode
 	public:
 	int nodeName;
 	bool taskScheduled;
+	bool isSource;
+	bool isSink;
 	int distance;
 	int numPredecessors;
 	int numSuccessors;
