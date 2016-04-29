@@ -22,6 +22,7 @@ class DAGNode
 	DAGNode *next;
 
 	DAGNode(int max);
+	DAGNode();
 	void initializeSuccessors();
 	void initializePredecessors();
 };
@@ -30,6 +31,10 @@ DAGNode::DAGNode(int max)
 	maxNodes = max;
 	initializeSuccessors();
 	initializePredecessors();
+}
+DAGNode::DAGNode()
+{
+	
 }
 void DAGNode::initializeSuccessors()
 {

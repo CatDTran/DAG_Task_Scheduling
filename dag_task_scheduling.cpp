@@ -20,9 +20,14 @@ int numArcs = 0;
 DAG directedAcylicGraph(MAX);
 DataReadySet myDataReadySet (MAX);
 string line;
+void appendNode(DAGNode *start,DAGNode *endNode, int tail, int head);
+void addSuccessors(DAGNode *tail, DAGNode *successors);
+void printSuccessors(DAGNode *start);
+
 int main()
 {
 	int maxNodes = MAX;
+	DAGNode *current = new DAGNode();
 	cin >> numCrews;//read the first line which contains number of crews
 	cout << "Number of crews: " << numCrews << endl;//print out the number of crews
 
@@ -44,13 +49,14 @@ int main()
 			node.taskScheduled = false;
 			node.numPredecessors = 0;
 			node.numSuccessors = 0;
+			node.next = NULL;
 			directedAcylicGraph.graph[node.nodeName] = node;
 			//
-			cout << directedAcylicGraph.graph[node.nodeName].nodeName;
-			if(!node.taskScheduled)
-				cout << "False" << endl;
-			else
-				cout << "True" << endl;
+			cout << "Node created: " << directedAcylicGraph.graph[node.nodeName].nodeName << endl;
+			// if(!node.taskScheduled)
+			// 	cout << "False" << endl;
+			// else
+			// 	cout << "True" << endl;
 		}
 		else if(line[0] == 'a')
 		{
@@ -58,29 +64,37 @@ int main()
 			iss >> tail;
 			iss >> head;
 			iss >> distance;
-			cout << command << " " << tail << " " << head << " ";
-			int successorsIndex = ++directedAcylicGraph.graph[tail].numSuccessors;
-			int predecessorsIndex = ++directedAcylicGraph.graph[head].numPredecessors;
+			cout << "Arc added: " << " " << tail << " --> " << head << " " << " | weight: " << distance << endl;
+			//int successorsIndex = ++directedAcylicGraph.graph[tail].numSuccessors;
+			//int predecessorsIndex = ++directedAcylicGraph.graph[head].numPredecessors;
 			//store successor for each node
-			directedAcylicGraph.graph[tail].next = &directedAcylicGraph.graph[head];
+			addSuccessors(&directedAcylicGraph.graph[tail], &directedAcylicGraph.graph[head]);
+			//appendNode(&directedAcylicGraph.graph[tail], &directedAcylicGraph.graph[head], tail, head);
 			//store predecessors for each node
-			directedAcylicGraph.graph[head].predecessors[predecessorsIndex] = directedAcylicGraph.graph[tail].nodeName;
-			directedAcylicGraph.distance[tail][head] = distance;			
-			cout  << directedAcylicGraph.distance[tail][head] << endl;
+			//directedAcylicGraph.graph[head].predecessors[predecessorsIndex] = directedAcylicGraph.graph[tail].nodeName;
+			//directedAcylicGraph.distance[tail][head] = distance;			
+			//cout  << directedAcylicGraph.distance[tail][head] << endl;
 		}
+	}
+	for(int i = 1; i <= numNodes; i++)
+	{
+		printSuccessors(&directedAcylicGraph.graph[i]);
 	}
 
 	//print out successors and predecessors for each node
-	for(int i = 1; i <= numNodes; i++)
-	{
-		cout << "Node " << directedAcylicGraph.graph[i].nodeName << " Successor: ";
-		DAGNode *temp = directedAcylicGraph.graph[i].next;
-		while(temp->next != NULL)
-		{
-			cout << temp->nodeName;
-			temp = temp->next;			
-		}
-	}
+	// for(int i = 1; i <= numNodes; i++)
+	// {
+	// 	cout << "Node " << directedAcylicGraph.graph[i].nodeName << " Successor: ";
+	// 	DAGNode *temp = new DAGNode();
+	// 	temp = directedAcylicGraph.graph[i].next;
+	// 	while(temp != NULL)
+	// 	{
+	// 		cout << temp->nodeName;
+	// 		temp = temp->next;
+	// 		//break;			
+	// 	}
+	// 	cout << endl;
+	// }
 	// for(int i = 1; i <= numNodes;i++)
 	// {
 	// 	//print out node's successors
@@ -122,4 +136,40 @@ int main()
 	// 	cout << endl;
 	// }
 	cout << "numNodes: " << numNodes << " | numArcs: " << numArcs << endl;
+}
+
+void appendNode(DAGNode *start,DAGNode *endNode, int tail, int head)
+{
+	DAGNode *current = new DAGNode();
+	DAGNode *last = new DAGNode();
+	*last = *endNode;
+	current = start;
+	while(current->next)
+	{
+		current = current->next;
+	}
+	current->next = new DAGNode();
+	current->next = endNode;
+	current->next->next = NULL;
+}
+void addSuccessors(DAGNode *tail, DAGNode *successors)
+{
+	int i = ++(tail->numSuccessors);
+	tail->successors[i] = successors->nodeName;
+}
+void printSuccessors(DAGNode *start)
+{
+	DAGNode *current = start;
+	// while(current->next)
+	// {
+	// 	cout << "Successor of node " << start->nodeName << ": " << current->nodeName << endl;
+	// 	current = current->next;
+	// }
+	cout << "Node " << start->nodeName << " has successor(s): ";
+	for(int i = 1; i <= start->numSuccessors;i++)
+	{
+		cout << start->successors[i] << " ";
+	}
+
+	cout << endl;
 }
